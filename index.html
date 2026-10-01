@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Green Haven Farmhouse</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --green: #315c3b;
+      --dark-green: #193523;
+      --light-green: #edf4ec;
+      --cream: #f8f5ed;
+      --gold: #c89b52;
+      --text: #333;
+      --white: #fff;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: var(--cream);
+      line-height: 1.6;
+    }
+
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 7%;
+      background: rgba(25, 53, 35, 0.95);
+      color: white;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: var(--gold);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 28px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .menu-btn {
+      display: none;
+      font-size: 25px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      padding: 100px 20px 50px;
+
+      background:
+        linear-gradient(rgba(20, 45, 28, 0.55), rgba(20, 45, 28, 0.65)),
+        url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=2000&q=85")
+        center/cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      line-height: 1;
+      margin-bottom: 25px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--gold);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #aa7e39;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid white;
+      margin-left: 10px;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--dark-green);
+    }
+
+    /* GENERAL */
+    section {
+      padding: 90px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title span {
+      color: var(--gold);
+      font-size: 0.9rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark-green);
+      margin-top: 8px;
+    }
+
+    /* ABOUT */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      background: var(--white);
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 15px;
+    }
+
+    .about-text h2 {
+      font-size: 2.5rem;
+      color: var(--dark-green);
+      margin-bottom: 20px;
+    }
+
+    .about-text p {
+      margin-bottom: 18px;
+      color: #666;
+    }
+
+    /* AMENITIES */
+    .amenities {
+      background: var(--light-green);
+    }
+
+    .amenity-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .amenity {
+      background: white;
+      padding: 30px 20px;
+      text-align: center;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+
+    .amenity:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+    }
+
+    .amenity .icon {
+      font-size: 2.3rem;
+      margin-bottom: 12px;
+    }
+
+    .amenity h3 {
+      color: var(--dark-green);
+      margin-bottom: 8px;
+    }
+
+    /* ROOMS */
+    .rooms {
+      background: var(--cream);
+    }
+
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .room-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+    }
+
+    .room-card img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+    }
+
+    .room-info {
+      padding: 25px;
+    }
+
+    .room-info h3 {
+      color: var(--dark-green);
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .room-info p {
+      color: #666;
+      margin-bottom: 15px;
+    }
+
+    /* GALLERY */
+    .gallery {
+      background: var(--white);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px;
+      gap: 12px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: 0.4s;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.02);
+      filter: brightness(0.85);
+    }
+
+    .gallery-grid img:nth-child(1) {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .gallery-grid img:nth-child(4) {
+      grid-column: span 2;
+    }
+
+    /* ACTIVITIES */
+    .activities {
+      background: var(--dark-green);
+      color: white;
+    }
+
+    .activities .section-title h2 {
+      color: white;
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .activity {
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 30px;
+      border-radius: 12px;
+    }
+
+    .activity h3 {
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .activity p {
+      color: #ddd;
+    }
+
+    /* CONTACT */
+    .contact {
+      background: var(--cream);
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    .contact-info h3 {
+      color: var(--dark-green);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      margin-bottom: 12px;
+    }
+
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--green);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #102719;
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    footer p {
+      color: #aaa;
+      margin-top: 8px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .about,
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+
+      .amenity-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .room-grid,
+      .activity-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 650px) {
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        width: 100%;
+        background: var(--dark-green);
+        flex-direction: column;
+        padding: 20px;
+        text-align: center;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 3.2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .btn-outline {
+        margin: 10px 0 0;
+      }
+
+      section {
+        padding: 65px 5%;
+      }
+
+      .amenity-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 220px;
+      }
+
+      .gallery-grid img:nth-child(1),
+      .gallery-grid img:nth-child(4) {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="logo">Green<span>Haven</span></div>
+
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+    <ul id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#amenities">Amenities</a></li>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Escape to Nature</h1>
+
+      <p>
+        A peaceful farmhouse surrounded by greenery,
+        fresh air and unforgettable moments.
+      </p>
+
+      <a href="#contact" class="btn">Book Your Stay</a>
+      <a href="#about" class="btn btn-outline">Explore</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+
+    <div class="about-image">
+      <img
+        src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85"
+        alt="Beautiful farmhouse"
+      />
+    </div>
+
+    <div class="about-text">
+      <div class="section-title" style="text-align:left; margin-bottom:20px;">
+        <span>Welcome</span>
+        <h2>Your Private Countryside Escape</h2>
+      </div>
+
+      <p>
+        Welcome to Green Haven Farmhouse, a relaxing retreat
+        where modern comfort meets the beauty of nature.
+      </p>
+
+      <p>
+        Spend your days enjoying peaceful gardens, beautiful
+        sunsets, outdoor activities and quality time with
+        family and friends.
+      </p>
+
+      <p>
+        Whether you're planning a weekend getaway, family
+        vacation, celebration or private event, our farmhouse
+        provides the perfect setting.
+      </p>
+
+      <a href="#contact" class="btn">Plan Your Visit</a>
+    </div>
+
+  </section>
+
+  <!-- AMENITIES -->
+  <section class="amenities" id="amenities">
+
+    <div class="section-title">
+      <span>Facilities</span>
+      <h2>Everything You Need</h2>
+    </div>
+
+    <div class="amenity-grid">
+
+      <div class="amenity">
+        <div class="icon">🏊</div>
+        <h3>Swimming Pool</h3>
+        <p>Relax and enjoy our private pool.</p>
+      </div>
+
+      <div class="amenity">
+        <div class="icon">🌳</div>
+        <h3>Private Garden</h3>
+        <p>Beautiful green spaces for relaxing.</p>
+      </div>
+
+      <div class="amenity">
+        <div class="icon">🔥</div>
+        <h3>BBQ Area</h3>
+        <p>Perfect evenings with family and friends.</p>
+      </div>
+
+      <div class="amenity">
+        <div class="icon">📶</div>
+        <h3>Free Wi-Fi</h3>
+        <p>Stay connected whenever you need.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ROOMS -->
+  <section class="rooms" id="rooms">
+
+    <div class="section-title">
+      <span>Accommodation</span>
+      <h2>Stay With Us</h2>
+    </div>
+
+    <div class="room-grid">
+
+      <div class="room-card">
+        <img
+          src="https://images.unsplash.com/photo-1615874694520-474822394e73?auto=format&fit=crop&w=1000&q=80"
+          alt="Master bedroom"
+        />
+
+        <div class="room-info">
+          <h3>Master Bedroom</h3>
+          <p>
+            Spacious and comfortable room with a beautiful
+            countryside view.
+          </p>
+
+          <a href="#contact" class="btn">Enquire</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img
+          src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80"
+          alt="Family room"
+        />
+
+        <div class="room-info">
+          <h3>Family Room</h3>
+          <p>
+            A cozy space designed for families and groups.
+          </p>
+
+          <a href="#contact" class="btn">Enquire</a>
+        </div>
+      </div>
+
+      <div class="room-card">
+        <img
+          src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=80"
+          alt="Luxury room"
+        />
+
+        <div class="room-info">
+          <h3>Luxury Suite</h3>
+          <p>
+            Premium accommodation for a special countryside stay.
+          </p>
+
+          <a href="#contact" class="btn">Enquire</a>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+
+    <div class="section-title">
+      <span>Our Farmhouse</span>
+      <h2>Gallery</h2>
+    </div>
+
+    <div class="gallery-grid">
+
+      <img
+        src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&w=1200&q=80"
+        alt="Farmhouse exterior"
+      />
+
+      <img
+        src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80"
+        alt="Bedroom"
+      />
+
+      <img
+        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=900&q=80"
+        alt="Living room"
+      />
+
+      <img
+        src="https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80"
+        alt="Swimming pool"
+      />
+
+      <img
+        src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=900&q=80"
+        alt="Nature"
+      />
+
+    </div>
+
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section class="activities">
+
+    <div class="section-title">
+      <span>Experience</span>
+      <h2>Things To Do</h2>
+    </div>
+
+    <div class="activity-grid">
+
+      <div class="activity">
+        <h3>🌿 Nature Walks</h3>
+        <p>
+          Explore the surrounding greenery and enjoy
+          peaceful walks through nature.
+        </p>
+      </div>
+
+      <div class="activity">
+        <h3>🍖 Outdoor BBQ</h3>
+        <p>
+          Gather around the BBQ area for a relaxed
+          evening with friends and family.
+        </p>
+      </div>
+
+      <div class="activity">
+        <h3>🌅 Sunset Evenings</h3>
+        <p>
+          Enjoy beautiful sunsets while relaxing
+          in our peaceful outdoor spaces.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+
+    <div class="section-title">
+      <span>Get In Touch</span>
+      <h2>Plan Your Stay</h2>
+    </div>
+
+    <div class="contact-container">
+
+      <div class="contact-info">
+
+        <h3>Green Haven Farmhouse</h3>
+
+        <p>📍 Your Farmhouse Address, Kerala, India</p>
+
+        <p>📞 +91 98765 43210</p>
+
+        <p>✉️ hello@greenhaven.com</p>
+
+        <p>
+          Come experience peaceful countryside living,
+          surrounded by nature and comfort.
+        </p>
+
+        <br />
+
+        <a
+          href="https://wa.me/919876543210"
+          class="btn"
+          target="_blank"
+        >
+          WhatsApp Us
+        </a>
+
+      </div>
+
+      <form onsubmit="submitForm(event)">
+
+        <input
+          type="text"
+          placeholder="Your Name"
+          required
+        />
+
+        <input
+          type="email"
+          placeholder="Email Address"
+          required
+        />
+
+        <input
+          type="tel"
+          placeholder="Phone Number"
+          required
+        />
+
+        <select required>
+          <option value="">Select Guests</option>
+          <option>1-2 Guests</option>
+          <option>3-5 Guests</option>
+          <option>6-10 Guests</option>
+          <option>10+ Guests</option>
+        </select>
+
+        <textarea
+          placeholder="Tell us about your stay..."
+          required
+        ></textarea>
+
+        <button class="btn" type="submit">
+          Send Enquiry
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="logo">
+      Green<span>Haven</span>
+    </div>
+
+    <p>
+      © 2026 Green Haven Farmhouse. All Rights Reserved.
+    </p>
+
+  </footer>
+
+  <script>
+
+    function toggleMenu() {
+      document
+        .getElementById("navLinks")
+        .classList.toggle("active");
+    }
+
+    function submitForm(event) {
+      event.preventDefault();
+
+      alert(
+        "Thank you! Your enquiry has been received. We will contact you soon."
+      );
+
+      event.target.reset();
+    }
+
+    // Close mobile menu after clicking a link
+    document.querySelectorAll("#navLinks a").forEach(link => {
+      link.addEventListener("click", () => {
+        document
+          .getElementById("navLinks")
+          .classList.remove("active");
+      });
+    });
+
+  </script>
+
+</body>
+</html>
