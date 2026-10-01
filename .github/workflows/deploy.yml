@@ -1,35 +1,15 @@
 name: nginx-deploy
-
-on:
-  push:
-    branches:
-      - main
-
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
+      - uses: actions/checkout@v4
       - name: Copy files via SSH
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          source: "index.html,style.css,script.js"
-          target: "/tmp/farmhouse"
-
-      - name: Deploy to Nginx
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          script: |
-            sudo mkdir -p /var/www/html
-            sudo cp -r /tmp/farmhouse/* /var/www/html/
-            sudo chown -R www-data:www-data /var/www/html
-            sudo systemctl restart nginx
+          source: "."
+          target: "/var/www/html"
